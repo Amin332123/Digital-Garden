@@ -1,0 +1,252 @@
+    .create-btncontainer {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+.create-theme-btn {
+  width: 50%;
+  max-width: 380px;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #0f9d58;
+  border: none;
+  border-radius: 12px;
+  color: #0b0b20;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: 0.3s;
+ 
+}
+
+.create-theme-btn:hover {
+  background: #19ff72;
+  transform: translateY(-3px);
+}
+
+/* Section Layout */
+.notes-section {
+    width: 90%;
+    margin: auto;
+    padding-top: 40px;
+    color: #fff;
+    text-align: center;
+      display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 1rem;
+}
+
+/* Tablet screens */
+@media (max-width: 992px) {
+  .notes-section {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  }
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  .notes-section {
+    grid-template-columns: repeat(1, 1fr); /* 1 column */
+  }
+}
+
+
+/* Create Button */
+.create-note-btn {
+    width: 50%;
+    padding: 12px;
+    background-color: #0f9d58;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 30px;
+    transition: 0.3s ease;
+}
+
+.create-note-btn:hover {
+    background-color: #13c86a;
+    transform: scale(1.05);
+}
+
+/* Notes Grid */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Note Card */
+.note-card {
+    background-color: #2a2a3f;
+    border: 2px solid #0f9d58;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0,255,100,0.12);
+    transition: transform 0.3s;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+}
+
+.note-title {
+    font-size: 20px;
+    color: #13c86a;
+    margin-bottom: 8px;
+}
+
+/* Note content (preview) */
+.note-content {
+    font-size: 15px;
+    color: #e0e0e0;
+    line-height: 1.4;
+    max-height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+}
+
+/* Info text */
+.note-stars, .note-date, .note-theme {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #c8c8c8;
+}
+
+/* Buttons inside card */
+.note-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.note-actions button {
+    flex: 1;
+    padding: 8px;
+    font-weight: bold;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.view-btn {
+    background-color: #0b84e8;
+    color: white;
+}
+
+.modify-btn {
+    background-color: #0f9d58;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #e22e2e;
+    color: #fff;
+}
+
+.note-actions button:hover {
+    transform: scale(1.07);
+    opacity: 0.9;
+}
+.note-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  display: none;
+}
+
+.note-modal-content {
+  width: 350px;
+  background: #2a2a3f;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #0f9d58;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #0f9d58;
+  background:#1b1b36;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+
+
+.note-modal-content input,
+.note-modal-content textarea {
+
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #0f9d58;
+  background:#1b1b36;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.note-modal-content textarea {
+  resize: none;
+  height: 100px;
+  border-color: #19ff72;
+}
+
+.word-counter {
+  font-size: 12px;
+  color: #444;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-btn,
+.modify-btn {
+  padding: 10px;
+  width: 48%;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.create-btn { background: #4CAF50; color: white; }
+.modify-btn { background: #007BFF; color: white; }
+
+label {
+    color: #13c86a;
+}
+#notemodaltitle {
+    text-align: center;
+}
+form {
+    display: grid;
+}
+.close-modal {
+    cursor: pointer;
+}
