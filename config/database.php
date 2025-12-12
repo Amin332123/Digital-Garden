@@ -1,9 +1,10 @@
 <?php 
 session_start();
-include "../db_connect.php";
+include("db_connect.php");
 $_SESSION['checker'] = true;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'signup') {
-    $_SESSION["checker"] = false;
+    $_SESSION['checker'] = false;
     $fullname = $_POST['fullname'];
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -17,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'signup') {
     header("Location: http://digitalgarden.test/dashboard.php"); 
     exit();
 }
-
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'login')
@@ -35,9 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'login')
         if ( $row['userName'] === $username && $row['passsword'] === $password  ) {
              echo "<script>  alert('good') </script>";
              $userfound = true;
-             $sql1 = "select createdDate from users where userName = '$username' ";
-             $value = $conn->query($sql)->fetch_assoc()['createdDate'];
-             $_SESSION['createddDate'] = $value;
+             $sqll = "select createdDate from users where userName = '$username' ";
+             $sqlll = "select id from users where userName = '$username'";
+             $id = $conn->query($sqlll)->fetch_assoc()['id'];
+             $_SESSION['id'] = $id;
+             $createdDate = $conn->query($sqll)->fetch_assoc()['createdDate'];
+             $_SESSION['createddDate'] = $createdDate;
              $_SESSION['userName'] = $username;
              header("Location: http://digitalgarden.test/dashboard.php");
              break;
@@ -48,6 +51,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'login')
         echo "<script>  alert('not good') </script>";
         
     }
-  
+    exit();
+} 
+$ViewNotesAction = isset($_GET['action']) ? $_GET['action'] : "";
+
+if ($ViewNotesAction == "notes") {
+$themeId = $_GET['themeid'];
+$sqlNote = "select themeName , notes.id , title, importance, notes.createdDate , content from notes , themes where associatedThemeId = $themeId and themes.id = $themeId" ;
+$result = $conn->query($sqlNote);
+$Notes = [];
+while ($row = $result->fetch_assoc()) {
+$Notes[] = $row;
 }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['formType'] === 'newtheme') {
+    $themeName = $_POST['themeName'];
+    $backgroundColor = $_POST['backgrounfColor'];
+    $maxNotes = $_POST['maxNotes'];
+    $userId = $_SESSION['id'];
+    $sqlCreateNewTheme = "INSERT into themes ( themeName ,  bColor , notesNumber , userId) 
+    values ( '$themeName' ,  '$backgroundColor' , $maxNotes , $userId  ) " ; 
+    $conn->query($sqlCreateNewTheme);
+    header("Location: http://digitalgarden.test/theme.php"); 
+    exit();
+}
+    
+
+
 ?>
