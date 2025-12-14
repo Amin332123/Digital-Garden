@@ -4,9 +4,9 @@ $db = "digitalgardenproject";
 $user = "root";           
 $pass = "";              
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_errno());
 }
 ?>

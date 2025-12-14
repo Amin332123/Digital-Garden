@@ -1,4 +1,14 @@
-<?php include("includes/headerregistred.php") ?>
+<?php 
+
+include("includes/headerregistred.php");
+include("config/database.php");
+
+
+
+
+
+
+?>
 <link rel="stylesheet" href="public/public/style/note.css">
 
 <link rel="stylesheet" href="public/public/style/style.css">
@@ -53,87 +63,36 @@
 <section class="notes-section">
    
 
-
-    <div class="notes-grid">
-        <!-- Example Note Card -->
+    
+    <?php 
+      foreach($_SESSION['notes'] as $Note) {
+        
+        ?>
+      
+    
+       <div class="notes-grid">
         <div class="note-card">
-            <h3 class="note-title">Study English</h3>
+            <h3 class="note-title">Title : <?php echo $Note["title"] ?></h3>
 
             <p class="note-content">
-                Practice speaking for 20 minutes every morning, listen to a short podcast Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati exercitationem temporibus, nam velit repudiandae, deserunt architecto dolorem perferendis quibusdam veritatis expedita nulla iusto est dolore modi quam accusamus et. Deleniti?
+               <h4>Content : </h4>
+             <?php echo $Note["content"] ?>
             </p>
 
-            <p class="note-stars">⭐⭐⭐⭐⭐</p>
-            <p class="note-date">Created: 10/12/2025</p>
-            <p class="note-theme">Theme: Productivity</p>
+            <p class="note-stars">importance : <?php echo $Note["importance"] ?> / 5</p>
+            <p class="note-date">Created Date : <?php echo  $Note["createdDate"]?></p>
+            <p class="note-theme">Assosiated Theme<?php echo  $Note["themeName"] ?></p>
 
             <div class="note-actions">
-                <button class="view-btn">View</button>
+                <button class="view-btn">View Content</button>
                 <button class="modify-btn">Modify</button>
                 <button class="delete-btn">Delete</button>
             </div>
         </div>
-    </div>
-    <div class="notes-grid">
-        <!-- Example Note Card -->
-        <div class="note-card">
-            <h3 class="note-title">Study English</h3>
-
-            <p class="note-content">
-                Practice speaking for 20 minutes every morning, listen to a short podcast…
-            </p>
-
-            <p class="note-stars">⭐⭐⭐⭐⭐</p>
-            <p class="note-date">Created: 10/12/2025</p>
-            <p class="note-theme">Theme: Productivity</p>
-
-            <div class="note-actions">
-                <button class="view-btn">View</button>
-                <button class="modify-btn">Modify</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="notes-grid">
-        <!-- Example Note Card -->
-        <div class="note-card">
-            <h3 class="note-title">Study English</h3>
-
-            <p class="note-content">
-                Practice speaking for 20 minutes every morning, listen to a short podcast…
-            </p>
-
-            <p class="note-stars">⭐⭐⭐⭐⭐</p>
-            <p class="note-date">Created: 10/12/2025</p>
-            <p class="note-theme">Theme: Productivity</p>
-
-            <div class="note-actions">
-                <button class="view-btn">View</button>
-                <button class="modify-btn">Modify</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="notes-grid">
-        <!-- Example Note Card -->
-        <div class="note-card">
-            <h3 class="note-title">Study English</h3>
-
-            <p class="note-content">
-                Practice speaking for 20 minutes every morning, listen to a short podcast…
-            </p>
-
-            <p class="note-stars">⭐⭐⭐⭐⭐</p>
-            <p class="note-date">Created: 10/12/2025</p>
-            <p class="note-theme">Theme: Productivity</p>
-
-            <div class="note-actions">
-                <button class="view-btn">View</button>
-                <button class="modify-btn">Modify</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-    </div>
+    </div> <?php } ?>
+   
+   
+    
 </section>
 
 

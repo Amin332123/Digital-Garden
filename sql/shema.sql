@@ -26,3 +26,5 @@ CREATE TABLE Notes (
   FOREIGN KEY (associatedThemeId) REFERENCES Themes(id)
 );
 
+
+

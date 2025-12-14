@@ -3,7 +3,17 @@
 <link rel="stylesheet" href="public/public/style/style.css">
 <section class="user-dashboard">
   <h1 class="user-name" id="userRegisteredName">Welcome, 
-  <?php session_start(); echo " " .  $_SESSION['fullname'] ?>
+  <?php session_start(); 
+  
+  if ($_SESSION['checker'] == false) {
+    echo " " .  $_SESSION['fullname'];
+  } else {
+    echo " " . $_SESSION['userName'];
+  }
+  
+  
+  
+  ?>
   👋</h1>
 
   <p class="user-info">
@@ -12,9 +22,15 @@
 
 
 
-    if ($_SESSION['checker'] == false) 
-    {echo " " . $_SESSION['createDate'];} 
-    else {echo " " . $_SESSION['createddDate'];}  ?>
+    if ($_SESSION['checker'] == false) {
+        echo " " . $_SESSION['createDate'];
+    } else {
+        echo " " . $_SESSION['createddDate'];
+    }  
+    
+    
+    
+    ?>
 
 
 
@@ -25,9 +41,9 @@
     Session Login Time: <span> <?php echo " " . $_SESSION['logintime'] ?></span>
   </p>
 
-  <a href="theme.php"><button class="view-themes-btn" id="">View Themes</button></a>
+  <a href="theme.php"><button class="view-themes-btn" id="themebtn" >View Themes</button></a>
 </section>
-
+<script src="public/public/js/theme.js"></script>
 <?php include("includes/footer.php") ?>
 
 

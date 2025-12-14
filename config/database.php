@@ -42,7 +42,6 @@ function loginInUser($conn)
     }
     exit();
 }
-
 function displayNotes($conn)
 {
     $themeId = $_GET['themeid'];
@@ -50,10 +49,10 @@ function displayNotes($conn)
     $result = $conn->query($sqlNote);
     $Notes = [];
     while ($row = $result->fetch_assoc()) {
-        $Notes[] = $row;
+        $Notes[]= $row;
     }
+    $_SESSION['notes'] = $Notes;
 }
-
 function createNewTheme($conn)
 {
     $themeName = $_POST['themeName'];
@@ -87,3 +86,4 @@ function signUpNewUser($conn)
     header("Location: http://digitalgarden.test/dashboard.php");
     exit();
 }
+

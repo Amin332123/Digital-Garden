@@ -12,6 +12,7 @@
         <span>D</span>igital <span>G</span>arden
     </div>
     <nav>
+        <a href="http://digitalgarden.test/theme.php"> <button class="btn-signup">Themes</button></a>
        <a href="http://digitalgarden.test/index.php"> <button class="btn-signup">Log out</button></a>
     </nav>
 </header>

@@ -1,4 +1,7 @@
-<?php include("includes/header.php"); ?>
+<?php 
+include("includes/header.php");
+include("config/db_connect.php");
+?>
 
 <link rel="stylesheet" href="public/public/style/style.css">
 <main>
@@ -17,24 +20,36 @@
     <section class="statistics-section">
         <h2>Digital Garden Statistics</h2>
         <div class="stats-cards">
+            
             <div class="stat-card">
-                <h3>120+</h3>
-                <p>Ideas Planted</p>
+                <h3><?php
+                    $result = $conn->query("SELECT * FROM users;");
+                    echo $result->num_rows;
+
+
+                    ?>+</h3>
+                <p>Users</p>
             </div>
             <div class="stat-card">
-                <h3>75+</h3>
-                <p>Active Users</p>
-            </div>
-            <div class="stat-card">
-                <h3>300+</h3>
+                <h3><?php 
+                $result = $conn->query("SELECT * FROM notes;");
+                    echo $result->num_rows;
+                
+                
+                ?>+</h3>
                 <p>Notes Created</p>
             </div>
             <div class="stat-card">
-                <h3>50+</h3>
-                <p>Profiles Completed</p>
+                <h3><?php 
+                $result = $conn->query("SELECT * FROM themes;");
+                    echo $result->num_rows;
+                
+                
+                ?>+</h3>
+                <p>themes Created</p>
             </div>
         </div>
-    </section> 
+    </section>
 </main>
 <section class="about-us">
     <h2>About Us</h2>
@@ -53,5 +68,3 @@
     </div>
 </section>
 <?php include("includes/footer.php"); ?>
-
-
