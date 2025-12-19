@@ -1,5 +1,6 @@
-<?php session_start(); include("includes/header.php"); $_SESSION['name'] = "Amine" ?>
+<?php session_start(); include("includes/header.php");?>
 <link rel="stylesheet" href="public/public/style/style.css">
+
 <div class="form-container">
     <h2 class="login-title ">Inscription</h2>
     <form action="config/database.php" method="POST" id="signupform">
@@ -20,7 +21,7 @@
         <button type="submit" class="signup-button">Create Account</button>
 
 
-        <div id="errorContainer"> </div>
+        <div id="errorRegisterContainer"> </div>
     </form>
 </div>
 

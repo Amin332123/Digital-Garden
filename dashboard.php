@@ -1,4 +1,9 @@
-<?php include("includes/headerregistred.php") ?>
+
+<?php include("includes/headerregistred.php") ;
+if (empty($_SESSION['id'])) {
+    header("Location: http://digitalgarden.test/login.php");
+}
+?>
 <link rel="stylesheet" href="public/public/style/dashboard.css">
 <link rel="stylesheet" href="public/public/style/style.css">
 <section class="user-dashboard">
@@ -38,7 +43,7 @@
   </p>
 
   <p class="user-info">
-    Session Login Time: <span> <?php echo " " . $_SESSION['logintime'] ?></span>
+    Session Login Time: <span> <?php echo " " . date("H:i:s") ?></span>
   </p>
 
   <a href="theme.php"><button class="view-themes-btn" id="themebtn" >View Themes</button></a>

@@ -172,6 +172,9 @@
   cursor: pointer;
 }
 
+.errorThemeModal {
+  background-color: #1b1b36;
+}
 
 @media (max-width: 992px) {
   .themes-section {
@@ -209,7 +212,7 @@
   background: #1b1e25;
   padding: 25px;
   border-radius: 18px;
-  border: 2px solid #0f9d58;
+  border: 10px solid #000000;
   text-align: center;
   box-shadow: 0 0 18px rgba(0, 255, 100, 0.13);
   transition: 0.3s;
@@ -276,4 +279,8 @@
 .delete-btn:hover {
   background: #ff606d;
   transform: scale(1.05);
+}
+#thememodalerror {
+  text-align: center;
+  margin-top : 5px;
 }

@@ -3,6 +3,7 @@ include("includes/header.php");
 include("config/db_connect.php");
 ?>
 
+
 <link rel="stylesheet" href="public/public/style/style.css">
 <main>
     <section class="big-title">

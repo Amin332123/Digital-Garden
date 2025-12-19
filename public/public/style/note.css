@@ -102,7 +102,7 @@
 }
 
 /* Note content (preview) */
-.note-content {
+.notecontent {
     font-size: 15px;
     color: #e0e0e0;
     line-height: 1.4;
@@ -110,8 +110,34 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 8px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;  
+}
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }
 
+.modal {
+  background: #2a2a3f;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 250px;
+  text-align: center;
+}
+.closeNoteContentBtn{
+  height: 30px;
+  width: 60px;
+  background-color: #2a2a3f;
+  border : 2px solid #0f9d58;
+  border-radius: 10px;
+  color: #0f9d58;
+}
 /* Info text */
 .note-stars, .note-date, .note-theme {
     font-size: 14px;
@@ -225,6 +251,12 @@
   justify-content: space-between;
 }
 
+.star {
+  color:  gold;
+  font-size: 20px;
+}
+
+
 .create-btn,
 .modify-btn {
   padding: 10px;
@@ -233,6 +265,7 @@
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
 }
 
 .create-btn { background: #4CAF50; color: white; }
