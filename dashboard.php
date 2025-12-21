@@ -1,8 +1,8 @@
 
 <?php include("includes/headerregistred.php") ;
-if (empty($_SESSION['id'])) {
-    header("Location: http://digitalgarden.test/login.php");
-}
+// if (empty($_SESSION['id'])) {
+//     header("Location: http://digitalgarden.test/login.php");
+// }
 ?>
 <link rel="stylesheet" href="public/public/style/dashboard.css">
 <link rel="stylesheet" href="public/public/style/style.css">

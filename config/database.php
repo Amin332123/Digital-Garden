@@ -3,16 +3,17 @@
 session_start();
 include("db_connect.php");
 
-if(isset($_GET["logout"])) {
-    session_unset();
-    session_destroy();
-    header("Location: http://digitalgarden.test/index.php");
-}
+// if(isset($_GET["logout"]) && $_GET["logout"] === "true" ) {
+//     session_unset();
+//     session_destroy();
+//     header("Location: http://digitalgarden.test/index.php");
+// }
+
 
 $_SESSION['checker'] = true;
 $formType = $_POST['formType'] ?? '';
 
-$ViewNotesAction = isset($_GET['action']) ? $_GET['action'] : "";
+// $ViewNotesAction = isset($_GET['action']) ? $_GET['action'] : "";
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formType != '' && $formType === 'signup') {
@@ -25,9 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formType != '' && $formType === 'n
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $formType != '' && $formType === 'login') {
     loginInUser($conn);
 }
-if ($ViewNotesAction == "notes") {
+if (isset($_POST["viewnote"])) {
     displayNotes($conn);
-    
 }
 function loginInUser($conn)
 {
@@ -58,20 +58,14 @@ function loginInUser($conn)
 function displayNotes($conn)
 {
     
-    $themeId = $_GET['themeId'] ?? "" ;
+    $themeId = $_POST["theme_id"];
     $_SESSION['AssociatedThemeId'] = $themeId;
-    $sqlNote = "select themeName , notes.id , title, importance, notes.createdDate , content from notes , themes where associatedThemeId = '$themeId' and themes.id = '$themeId' ";
-    $result = $conn->query($sqlNote);
-    $Notes = [];
-    while ($row = $result->fetch_assoc()) {
-        $Notes[] = $row;
-    }
-    $_SESSION['notes'] = $Notes;
-    
+    header("Location: http://digitalgarden.test/note.php");
+ 
 }
 function createNewTheme($conn)
 {
-   
+
 
     $themeName = $_POST['themeName'] ?? '';
     $backgroundColor = $_POST['backgroundColor'] ?? '';
@@ -105,7 +99,6 @@ function createNewTheme($conn)
         );
         $stmt->execute();
         $stmt->close();
-
     }
     // CREATE
     else {
@@ -150,14 +143,14 @@ function signUpNewUser($conn)
     header("Location: http://digitalgarden.test/dashboard.php");
     exit();
 }
-$notetype = $_POST["notetype"] ?? "";
-if ($_SERVER["REQUEST_METHOD"] === "POST" && $notetype === "createnote") {
+// $notetype = $_POST["notetype"] ?? "";
+if (isset($_POST["notetype"]) && $_POST["notetype"] == "createnote") {
 
     $notetitle = $_POST["noteTitle"];
     $noteImportance = (int) $_POST["noteImportance"];
     $noteContent = $_POST["noteContent"];
     $NoteCreatedDate = date("Y-m-d");
-    $associatedId =  $_SESSION['AssociatedThemeId'];
+    $associatedId =  $_SESSION["AssociatedThemeId"];
     $stm = $conn->prepare(
         "INSERT INTO notes (title, importance, createdDate, associatedThemeId, content)
          VALUES (?, ?, ?, ?, ?)"
@@ -175,7 +168,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $notetype === "createnote") {
     $stm->close();
 
     // echo "<script></script>"
-    header("Location: http://digitalgarden.test/note.php?themeId=$associatedId");
+    // displayNotes($conn);
+    header("Location: http://digitalgarden.test/note.php");
+    
     exit;
 }
 if (isset($_GET["delete"])) {
@@ -185,7 +180,7 @@ function deleteThemeInDatabaseById($conn)
 {
     try {
         $themeidd = $_GET["delete"];
-        
+
         $deleteNotes = "delete from notes where associatedThemeId = '$themeidd' ";
         $conn->query($deleteNotes);
         $query = "delete from themes where id = '$themeidd' ";
@@ -201,29 +196,27 @@ function deleteThemeInDatabaseById($conn)
 
 
 
-if (isset($_POST["action"]) && $_POST["action"] = "modify" ) {
-   $_SESSION["themeidd"] = $_POST["theMeID"];
-   $clickedthemeid = $_POST["theMeID"];
-   $query = "select * from themes where id = '$clickedthemeid' " ;
-   $res =  $conn->query($query)->fetch_assoc();
-   if($res) {
-    $_SESSION["themetitle"] = $res["themeName"];
-    $_SESSION["thememaxNotes"] = $res["notesNumber"];
-    $_SESSION["backgroundcolor"] = $res["bColor"];
-   
-   }
-header("Location: http://digitalgarden.test/modifypage.php");
-
+if (isset($_POST["action"]) && $_POST["action"] = "modify") {
+    $_SESSION["themeidd"] = $_POST["theMeID"];
+    $clickedthemeid = $_POST["theMeID"];
+    $query = "select * from themes where id = '$clickedthemeid' ";
+    $res =  $conn->query($query)->fetch_assoc();
+    if ($res) {
+        $_SESSION["themetitle"] = $res["themeName"];
+        $_SESSION["thememaxNotes"] = $res["notesNumber"];
+        $_SESSION["backgroundcolor"] = $res["bColor"];
+    }
+    header("Location: http://digitalgarden.test/modifypage.php");
 }
 
 if (isset($_POST["actionformodification"]) && $_POST["actionformodification"] ==  "Update") {
-   
+
     updateThemeInDatabase($conn);
 }
 function updateThemeInDatabase($conn)
 {
     try {
-        
+
         $id = $_SESSION["themeidd"];
         $title = $_POST["themeName"];
         // $description = $_POST["description"];
@@ -240,10 +233,49 @@ function updateThemeInDatabase($conn)
 
 
 if (isset($_POST["noteid"])) {
-   
-   $themeidd =  $_SESSION["themeidd"];
-   $id = $_POST["noteid"];
-   $query = "delete from notes where id = '$id'";
-   $conn->query($query);    
-   header("Location: http://digitalgarden.test/note.php?themeId=$themeidd");
+
+    // $themeidd =  $_SESSION["themeidd"];
+    $id = $_POST["noteid"];
+    $querytwo = "select notes.associatedThemeId from notes where notes.id = '$id' ";
+    $getthemeid = $conn->query($querytwo)->fetch_assoc(); 
+    $themeid = $getthemeid["associatedThemeId"];
+    $query = "delete from notes where id = '$id' ";
+    $conn->query($query);
+    header("Location: http://digitalgarden.test/note.php");
 }
+if (isset($_POST["noteidmodify"])) {
+    // var_dump($_POST["noteidmodify"]);
+    $noteId = $_POST["noteidmodify"];
+    $query = "SELECT * from notes where notes.id = '$noteId' ";
+    $res = $conn->query($query)->fetch_assoc();
+
+    if ($res) {
+
+        $_SESSION["noteidd"] = $res["id"];
+        $_SESSION["notetitle"] = $res["title"];
+        $_SESSION["noteContent"] = $res["content"];
+        $_SESSION["importance"] = $res["importance"];
+
+        header("Location: http://digitalgarden.test/modifynoteform.php");
+    }
+}
+
+if (isset($_POST["modifing"]) && $_POST["modifing"] == "modifidnote") {    
+    
+    $noteidd = $_POST["noteidd"];
+    $notetitle = $_POST["noteTitle"];
+    $noteimportance = $_POST["noteImportance"];
+    $noteContent = $_POST["noteContent"];
+    $createdDate = date("Y-m-d"); 
+    $querytwo = "select notes.associatedThemeId from notes where notes.id = '$noteidd' ";
+    $getthemeid = $conn->query($querytwo)->fetch_assoc();    
+    $query = "UPDATE notes set title = '$notetitle' , content = '$noteContent' , importance = '$noteimportance' , createdDate = '$createdDate'  where notes.id = '$noteidd'  ";
+    $conn->query($query);  
+
+    $themeid = $getthemeid["associatedThemeId"];
+    
+    // var_dump($getthemeid["associatedThemeId"] );
+    header("Location: http://digitalgarden.test/note.php");
+}
+
+

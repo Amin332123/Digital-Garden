@@ -77,7 +77,10 @@ while ($row = $result->fetch_assoc()) {
                 <p class="theme-notes">Max Notes: <div class="maxnotConatiner"><?= $theme['notesNumber'] ?></div></p>
 
                 <div class="theme-actions"  style="display: flex;">
-                    <a href="note.php?action=notes&themeId=<?= $theme['id']?>"><button class="view-btn">View Notes</button></a>
+                    <form action="config/database.php" method="POST">
+                     <input type="hidden" name="theme_id" value="<?= $theme['id']?>">
+                        <button class="view-btn" type="submit" name="viewnote">View Notes</button>
+                    </form>
                    <form action="config/database.php" method="POST">
                     <input class="modify-btn" type="submit" name="action"  value="modify"></input>
                     <input type="hidden" name="theMeID" value="<?= $theme['id'] ?>">

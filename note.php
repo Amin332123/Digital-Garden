@@ -2,7 +2,13 @@
 
 include("includes/headerregistred.php");
 include("config/database.php");
-displayNotes($conn);
+//  displayNotes($conn);
+$sqlNote = "select themeName , notes.id , title, importance, notes.createdDate , content from notes , themes where associatedThemeId = '{$_SESSION['AssociatedThemeId']}' and themes.id = '{$_SESSION['AssociatedThemeId']}' ";
+$result = $conn->query($sqlNote);
+$Notes = [];
+while ($row = $result->fetch_assoc()) {
+  $Notes[] = $row;
+}
 
 
 
@@ -34,7 +40,7 @@ displayNotes($conn);
       <input type="hidden" name="notetype" value="createnote">
       <div class="btns">
         <!-- <button class="modify-btn">Modify</button> -->
-        <button type="submit" class="create-btn">Create</button>
+        <button type="submit" name="createNote" class="create-btn">Create</button>
       </div>
     </form>
     <div id="errorNoteContainer"></div>
@@ -67,7 +73,7 @@ displayNotes($conn);
 
 
   <?php
-  foreach ($_SESSION['notes'] as $Note) {
+  foreach ($Notes as $Note) {
 
   ?>
 
@@ -77,7 +83,7 @@ displayNotes($conn);
         <h3 class="note-title">Title : <?php echo $Note["title"] ?></h3>
 
         <div class="notecontent">
-          <h4>Content : </h4>
+          <h4 style="visibility: hidden;">Content : </h4>
           <div class="noteconnteent">
             <?php echo $Note["content"] ?>
           </div>
@@ -92,11 +98,14 @@ displayNotes($conn);
 
         <div class="note-actions">
           <button class="view-btn">View Content</button>
-          <button class="modify-btn">Modify</button>
-         <form action="config/database.php"  method="POST">
-           <button type="submit" class="delete-btn">Delete</button>
-           <input type="hidden" name="noteid" value="<?= $Note["id"] ?>">
-         </form>
+          <form action="config/database.php" method="POST">
+            <button type="sumbit" class="modify-btn">Modify</button>
+            <input type="hidden" name="noteidmodify" value="<?= $Note["id"] ?>">
+          </form>
+          <form action="config/database.php" method="POST">
+            <button type="submit" class="delete-btn">Delete</button>
+            <input type="hidden" name="noteid" value="<?= $Note["id"] ?>">
+          </form>
         </div>
       </div>
     </div> <?php } ?>
