@@ -3,12 +3,17 @@
 // if (empty($_SESSION['id'])) {
 //     header("Location: http://digitalgarden.test/login.php");
 // }
+session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: http://digitalgarden.test/login.php");
+    exit;
+}
 ?>
 <link rel="stylesheet" href="public/public/style/dashboard.css">
 <link rel="stylesheet" href="public/public/style/style.css">
 <section class="user-dashboard">
   <h1 class="user-name" id="userRegisteredName">Welcome, 
-  <?php session_start(); 
+  <?php ; 
   
   if ($_SESSION['checker'] == false) {
     echo " " .  $_SESSION['fullname'];

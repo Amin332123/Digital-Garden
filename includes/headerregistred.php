@@ -14,6 +14,8 @@
     <nav>
         <a href="http://digitalgarden.test/theme.php"> <button class="btn-signup">Themes</button></a>
         <a href="http://digitalgarden.test/Dashboard.php"> <button class="btn-signup">Dashboard</button></a>
-       <a href="../config/database.php?logout=true"> <button class="btn-signup">Log out</button></a>
+        <form action="../config/database.php">
+            <button class="btn-signup" name="logout">Log out</button>
+        </form>
     </nav>
 </header>

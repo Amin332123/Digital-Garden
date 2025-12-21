@@ -1,7 +1,13 @@
 <?php
-
+// session_start();
 include("includes/headerregistred.php");
 include("config/database.php");
+
+
+if (!isset($_SESSION['id'])) {
+    header("Location: http://digitalgarden.test/login.php");
+    exit;
+}
 //  displayNotes($conn);
 $sqlNote = "select themeName , notes.id , title, importance, notes.createdDate , content from notes , themes where associatedThemeId = '{$_SESSION['AssociatedThemeId']}' and themes.id = '{$_SESSION['AssociatedThemeId']}' ";
 $result = $conn->query($sqlNote);

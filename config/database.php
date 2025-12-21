@@ -2,7 +2,11 @@
 
 session_start();
 include("db_connect.php");
-
+if (isset($_GET["logout"])) {
+    session_unset();
+    session_destroy();
+    header("Location: http://digitalgarden.test/login.php");
+}
 // if(isset($_GET["logout"]) && $_GET["logout"] === "true" ) {
 //     session_unset();
 //     session_destroy();
@@ -31,19 +35,23 @@ if (isset($_POST["viewnote"])) {
 }
 function loginInUser($conn)
 {
-    $sql = "select userName, passsword from users";
-    $result = $conn->query($sql);
-    $userfound = false;
+    $_SESSION["LoginErros"] = "";
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $sql = "select * from users where userName = '$username'";
+    $result = $conn->query($sql);
+    $userfound = false;
+    
     while ($row = $result->fetch_assoc()) {
-        if ($row['userName'] === $username && $row['passsword'] === $password) {
+        // if ($row['passsword'] != $password) {
+        //     $_SESSION["LoginErros"] = "Password or Username is not correct";
+        //      header("Location: http://digitalgarden.test/login.php");
+        // }
+        if ($row['passsword'] === $password) {
             $userfound = true;
-            $sqll = "select createdDate from users where userName = '$username' ";
-            $sqlll = "select id from users where userName = '$username'";
-            $id = $conn->query($sqlll)->fetch_assoc()['id'];
+            $id = $row['id'] ;
             $_SESSION['id'] = $id;
-            $createdDate = $conn->query($sqll)->fetch_assoc()['createdDate'];
+            $createdDate = $row['createdDate'];
             $_SESSION['createddDate'] = $createdDate;
             $_SESSION['userName'] = $username;
             header("Location: http://digitalgarden.test/dashboard.php");
@@ -51,7 +59,8 @@ function loginInUser($conn)
         }
     }
     if (!$userfound) {
-        echo "<script>  alert('not good') </script>";
+        $_SESSION["LoginErros"] = "No user found";
+        header("Location: http://digitalgarden.test/login.php");
     }
     exit();
 }
@@ -277,5 +286,6 @@ if (isset($_POST["modifing"]) && $_POST["modifing"] == "modifidnote") {
     // var_dump($getthemeid["associatedThemeId"] );
     header("Location: http://digitalgarden.test/note.php");
 }
+
 
 

@@ -1,4 +1,7 @@
-<?php include("includes/header.php"); ?>
+<?php include("includes/header.php"); 
+session_start();
+?>
+
 <link rel="stylesheet" href="public/public/style/style.css">
 <link rel="stylesheet" href="public/public/style/login.css">
 <div class="login-container">
@@ -19,6 +22,11 @@
   <p class="signup-text">
     Don’t have an account? <a href="register.php">Sign Up</a>
   </p>
+  <div class="logingerrorcontaienr" style="color: red;"> 
+    <?=isset($_SESSION["LoginErros"]) ? $_SESSION["LoginErros"] : " "  ;
+    unset($_SESSION["LoginErros"]);
+    ?> 
+  </div>
 </div>
 
 

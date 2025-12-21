@@ -2,6 +2,10 @@
 
 include("includes/headerregistred.php");
 include("config/database.php");
+if (!isset($_SESSION['id'])) {
+     header("Location: http://digitalgarden.test/login.php");
+    exit;
+}
 $sqlUsers = "select themes.id , themeName , themes.notesNumber , themes.bColor from themes where userId =  '{$_SESSION['id']}' ";
 $result = $conn->query($sqlUsers);
 $themes = [];
